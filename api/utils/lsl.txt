@@ -1,0 +1,172 @@
+string EscapeURL(string str) // Wrapper for the buggy llEscapeURL(), which only returns 255 bytes
+{
+    string escaped = "";
+    while(str != "")
+    {
+        escaped += llEscapeURL(llGetSubString(str,0,82));
+        str = llDeleteSubString(str,0,82);
+    }
+    return escaped;
+}
+
+list TSLPString2TSLPData(string tslp) // Parses a string containing TSLP Data to TSLP Data.
+{
+    list prelim = llParseString2List(tslp,["\n"],[]);
+    integer length = llGetListLength(prelim);
+    integer i = 0;
+    while(i < length)
+    {
+        string dat = llList2String(prelim,i);
+        if(llGetSubString(dat,-1,-1) == "\\")
+        {
+            integer escaped = TRUE;
+            integer j = llStringLength(dat) - 2;
+            while(llGetSubString(dat,j,j) == "\\" && j >= 0)
+            {
+                escaped = !escaped;
+                --j;
+            }
+            integer n;
+            for(n = llStringLength(dat) - 1; n > 0 && llGetSubString(dat,n,n) == "\\"; n -= 2)
+            {
+                string char = llGetSubString(dat,n+1,n+1);
+                if(char != "\\" && char != "")
+                {
+                    n = 0;
+                }
+                else
+                {
+                    dat = llDeleteSubString(dat,n,n);
+                }
+            }
+            if(escaped)
+            {
+                dat = dat+"\n"+llList2String(prelim,i+1);
+                prelim = llListReplaceList(prelim,[dat],i,i);
+                prelim = llDeleteSubList(prelim,i+1,i+1);
+                --length;
+            }
+            else
+            {
+                prelim = llListReplaceList(prelim,[dat],i,i);
+                ++i;
+            }
+        }
+        else
+        {
+            ++i;
+        }
+    }
+    return prelim;
+}
+
+// param l: TSLP list to extract data from
+// param 2: Case-sensitive name of the object.
+// Example: TSLP2String(data, "response.fields.Gender"); // Returns the value of response.fields.Gender
+string TSLP2String(list l, string k) // Get a string from a TSLP object. 
+{
+    integer index = llListFindList(l,[k]);
+    if(index != -1)
+    {
+        return llList2String(l,index+1);
+    }
+    return "";
+}
+
+// param l: TSLP list to extract data from
+// param 2: Case-sensitive name of the object.
+// Example: TSLP2Integer(data, "response.ratings.Scripting"); // Returns the integer contained in response.ratings.Scripting
+integer TSLP2Integer(list l, string k)
+{
+    integer index = llListFindList(l,[k]);
+    if(index != -1)
+    {
+        return llList2Integer(l,index+1);
+    }
+    return 0;
+}
+
+// param l: TSLP list to extract data from
+// param 2: Case-sensitive name of the object.
+// Example: TSLP2Float(data, "response.location.x"); // Returns the float contained in response.location.x
+float TSLP2Float(list l, string k)
+{
+    integer index = llListFindList(l,[k]);
+    if(index != -1)
+    {
+        return llList2Float(l,index+1);
+    }
+    return 0.0;
+}
+
+// param l: TSLP list to extract data from
+// param 2: Case-sensitive name of the object.
+// Example: TSLP2Vector(data, "response.location"); // Returns the vector at response.location.
+// Vectors are always represented as an object with x, y and z properties.
+vector TSLP2Vector(list l, string k)
+{
+    return <TSLP2Float(l,k+".x"), TSLP2Float(l,k+".y"), TSLP2Float(l,k+".z")>;
+}
+
+// param 1: TSLP list to examine
+// param 2: Parent object
+// Returns a list of all objects below the specified object. The method is not resursive.
+// Example: GetTSLPObjectMembers(data, "response.ratings.Scripting"); // -> ["positive", "negative", "rated"]
+list GetTSLPObjectMembers(list l, string o)
+{
+    list members = [];
+    integer i; integer len;
+    integer olen = llStringLength(o);
+    for(i = 0, len = llGetListLength(l); i < len; i += 2)
+    {
+        string name = llList2String(l,i);
+        if(llGetSubString(name,0,olen) == o+".")
+        {
+            integer cut = olen + llSubStringIndex(llDeleteSubString(name,0,olen),".");
+            if(cut == olen - 1)
+            {
+                cut = -1;
+            }
+            name = llGetSubString(name,olen+1,cut);
+            if(llListFindList(members,[name]) == -1)
+            {
+                members = (members=[])+members+[name];
+            }
+        }
+    }
+    return members;
+}
+
+// Returns whether the call specified in the given TSLP list was successful
+integer TSLPSuccess(list l)
+{
+    return TSLP2Integer(l,"success");
+}
+
+// Return the error string, if any
+string TSLPError(list l)
+{
+    return TSLP2String(l,"error");
+}
+// Returns the name of the method called
+string TSLPMethod(list l)
+{
+    return TSLP2String(l,"method");
+}
+
+// Makes a TSLP request, giving the listed arguments as paramaters.
+// Arguments are in [name1, value1, name2, value2, ...] format.
+// Example:
+// TSLPRequest("GetUserID", ["first", "Katharine", "last", "Berry"]
+// Responses come as a TSLP string in the body of the http_response event.
+key TSLPRequest(string method, list args)
+{
+    string q = "";
+    integer i; integer len;
+    for(i = 0, len = llGetListLength(args); i < len; i += 2)
+    {
+        q += "&"+EscapeURL(llList2String(args,i))+"="+EscapeURL(llList2String(args,i+1));
+    }
+    q = llDeleteSubString(q,0,0);
+    return llHTTPRequest("http://api.tslprofiles.com/LSL/"+method,[HTTP_METHOD,"POST",HTTP_MIMETYPE,"application/x-www-form-urlencoded"],q);
+}

@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteRule ^([a-zA-Z-]+?)/([a-zA-Z]+)$ backend.php
+#RewriteRule .php index.html

@@ -1,0 +1,387 @@
+/* TSLE Main */
+
+body {
+    margin:0;
+    padding:0;
+    height: 100%;
+    font: 12px/14px "Lucida Grande", "Lucida", "Geneva", Veranda, Arial, Helvetica, sans-serif;
+    color: #000;
+    background-color: #fff;
+} 
+p{
+    /*text-indent: 10px;*/
+    font: 12px/14px "Lucida Grande", "Lucida", "Geneva", Veranda, Arial, Helvetica, sans-serif;
+    color: #000;
+}
+a {
+    text-decoration: none;
+    font: inherit;
+    color: #496EB6;
+}
+a:hover    {
+    color: #FF0000;
+    text-decoration: underline;
+}
+
+a[onclick], .clickable {
+	cursor: pointer;
+	cursor: hand;
+}
+
+h1{
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 3px;
+    text-transform: lowercase;
+}
+
+h3{
+    font: 20px/20px "Georgia",times, serif;
+    font-style: italic;
+    font-weight: normal;
+    letter-spacing: 5px;
+    margin-bottom: 1px;
+}
+
+h3 a:link{
+    text-decoration: none;
+    border-bottom: none;
+    font: 20px/20px "Georgia",times, serif;
+    font-style: italic;
+    font-weight: normal;
+    letter-spacing: 5px;
+    margin-bottom: 1px;
+}
+
+h3 a:visited{
+    text-decoration: none;
+    border-bottom: none;
+    font: 20px/20px "Georgia",times, serif;
+    font-style: italic;
+    font-weight: normal;
+    letter-spacing: 5px;
+    margin-bottom: 1px;
+}
+
+h2{
+    font: 11px/10px "Lucida Sans Unicode", verdana, helvetica, sans-serif;
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+.linklist {
+	list-style-type: none;
+}#container{
+    width: 980px;
+    /* background: #eeeeee; */
+    height: 100%;
+    margin: 0px auto;
+}
+
+#header{
+    background-color: #fff;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px dotted #d1d1d1;
+    font: 40px "Trebuchet MS", Tahoma, Verdana;
+    color: #ddd;
+    letter-spacing: 10px;
+    padding-top: 50px;
+	text-transform: lowercase;
+}
+
+#sidebar{
+    width: 149px;
+    height: 100%;
+    padding-top: 10px; /*So the background color is flush against the header.*/
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    border-right: 1px solid #d1d1d1;
+    background-color: #fefefe;
+    float: left;
+}
+
+#main{
+    width: 810px;
+    padding-right: 5px;
+    margin-top: 10px; /*Dont need to worry about background color*/
+    background: transparent;
+    float: right;
+    height: 100%;
+}
+#footer{
+    text-transform: lowercase;
+    width: 600px;
+    margin: 0px auto;
+    font-size: 8px;
+    line-height: 10px;
+    color: #bbbbbb;
+    text-align: center;
+}
+.windowContainer{
+    width: 90%;
+    height: auto;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.windowTitle{
+    height: auto;
+    width: auto;
+    padding: 5px;
+    background-color: #eee;
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 3px;
+    text-transform: lowercase;
+    color: #000;
+}
+
+textarea {
+	font: 12px/14px "Lucida Grande", "Lucida", "Geneva", Veranda, Arial, Helvetica, sans-serif;
+}
+
+.person {
+	width: 95%;
+    height: auto;
+	margin-top: 0px;
+    padding-top: 0px;
+	padding-bottom: 5px;
+	border-top-width: 0px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.browsename {
+	font-size: 14px;
+}
+
+.browsedata {
+	margin-top: 0px;
+	margin-left: 10px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+}
+
+/* View Profile */
+
+div.tabset {
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 0px;
+	margin-bottom: 10px;
+}
+
+span.tab {
+	border: 1px solid #ddd;
+	font-size: 17px;
+	text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
+	height: 20px;
+	line-height: 20px;
+}
+
+/* View Profile - Basic */
+
+.profileright {
+	float: right;
+	width: 205px;
+	height: auto;
+	border-left:10px solid #fff;
+	border-right:10px solid #fff;
+	background-color: #fff;
+	text-align: right;
+}
+
+#slmap {
+	right: -5px;
+}
+
+.fields {
+	margin-top: 10px;
+	padding-top: 5px;
+	border-top: 1px solid #ccc;
+}
+
+.fieldname {
+	font-weight: bold;
+}
+
+.fieldvalue {
+	margin-left: 20px;
+}
+
+/* View Profile - Ratings */
+
+table.ratingtable th {
+	border: none;
+	padding: 5px;
+	text-align: center;
+}
+
+table.ratingtable td {
+	border: none;
+	padding: 5px;
+	text-align: center;
+}
+
+/* View Profile - Comments */
+
+div.comment {
+	margin-left: 20px;
+}
+
+span.commentname {
+	margin-left: -15px;
+}
+
+/* Docs */
+
+.code {
+	margin-left: 10px;
+	font-family: "courier new", monospaced;
+}
+
+/* Autocomplete */
+
+div.auto_complete {
+	width: 350px;
+	background: #fff;
+}
+div.auto_complete ul {
+	border:1px solid #888;
+	margin:0;
+	padding:0;
+	width:100%;
+	list-style-type:none;
+}
+div.auto_complete ul li {
+	margin:0;
+	padding:3px;
+}
+div.auto_complete ul li.selected { 
+	background-color: #ddd; 
+}
+div.auto_complete ul strong.highlight { 
+	color: #800; 
+	margin:0;
+	padding:0;
+}
+
+/* Friend List */
+
+.plist ul {
+	list-style: none;
+	/* margin-left: 10px; */
+	border: solid 1px #aaa;
+	padding-left: 0px;
+	margin-left: 40px;
+	width:250px;
+}
+
+/* Microblog */
+
+.blogentry {
+	margin-left: 5px;
+	border-bottom-color: #aaa;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+.blogmeta {
+	color: #b9b9b9;
+	font-size: 10px;
+}
+
+.blogname {
+	font-weight: bold;
+}
+
+#profilegrid {
+	background-color: white;
+	color: #828282;
+}
+
+/* Groups */
+
+div.group {
+	border: solid 1px #ccc;
+	padding-left: 5px;
+}
+
+.groupname {
+	font-size: large;
+	cursor: pointer;
+	margin-left: -5px;
+}
+
+.sectiontitle {
+	margin-top: 10px;
+	margin-left: 5px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.sectioncontent {
+	margin-left: 10px;
+}
+
+a.joingroup {
+	padding-top: 10px;
+}
+
+#currentgroups {
+	padding: 0px;
+	max-height: 300px;
+	width: 200px;
+	margin-left: 10px;
+	margin-right: 10px;
+	float: right;
+	border-color: #cccccc;
+	border-width: 1px;
+	border-style: solid;
+	background-color: white;
+	overflow: auto;
+}
+
+#currentgrouplist {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+
+.hasaccount {
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* CSS table layout (unused. Damn IE.) */
+
+.table {
+	border-collapse: collapse;
+	display: table;
+}
+
+.table div {
+	display: table-row;
+}
+
+.table div div {
+	display: table-cell;
+	border-width: 10px;
+	border-style: solid;
+	border-color: white;
+	border-color: transparent;
+}
+
+.table div div p {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+

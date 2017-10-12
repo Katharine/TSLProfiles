@@ -1,0 +1,111 @@
+html {
+	font-family: MetaBookLF-Roman, MtBkLfRg, "Lucida Grande", "Trebuchet MS", Arial;
+	font-size: 12px;
+	color: white;
+	background-color: #3e3e3e;
+}
+
+p, td {
+	cursor: default;
+	margin: 0px;
+	border: 0px;
+	padding: 0px;
+}
+
+#ratingtable {
+	margin-right: auto;
+	margin-left: auto;
+	border-top-color: black;
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-top-style: solid;
+	border-left-color: black;
+	border-bottom-color: rgb(122,134,153);
+	border-right-color: rgb(122,134,153);
+	border-left-width: 1px;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-top-width: 1px;
+	border-spacing: 0px 0px;
+	border-collapse: collapse;
+	width: 90%;
+}
+
+#ratingtable td {
+	width: 33%;
+}
+
+td.numeric {
+	text-align: center;
+}
+
+tr.shaded {
+	color: white;
+	background-color: #4c4c4c;
+}
+
+.label  {
+	position:relative;
+	display:block;
+	color: rgb(147, 169, 211);
+}
+
+.label span {
+	position:absolute;
+	display:block;
+	top:0px;
+}
+
+.label:before {
+	display:block;
+	padding:1px;
+	content: attr(title);
+	color:black;
+}
+
+#ratingtable tr:hover {
+	background-color: #7f7f7f;
+}
+
+#ratingtable tr {
+	height: 16px;
+}
+
+.value {
+	border-top-color: black;
+	border-left-style: solid;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-top-style: solid;
+	border-left-color: black;
+	border-bottom-color: rgb(122,134,153);
+	border-right-color: rgb(122,134,153);
+	border-left-width: 1px;
+	border-bottom-width: 1px;
+	border-right-width: 1px;
+	border-top-width: 1px;
+}
+
+div.value {
+	margin-right: auto;
+	margin-left: auto;
+	width: 90%;
+}
+
+.fields.value {
+	width: 260px;
+}
+
+.fields.label {
+	width: 100px;
+}
+
+#fields {
+	margin-top: 10px;
+}
+
+#mblog {
+	margin-top: 10px;
+}
+

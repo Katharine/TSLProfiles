@@ -1,0 +1,74 @@
+(Include the TSL Profiles helper functions here)
+
+integer gID = 0;
+key gRequest = NULL_KEY;
+
+GetProfile()
+{
+    if(gID == 0)
+    {
+        string name = llKey2Name(llGetOwner());
+        list n = llParseString2List(name,[" "],[]);
+        gRequest = TSLPRequest("GetUserID",["first",llList2String(n,0),"last",llList2String(n,1)]);
+    }
+    else
+    {
+        gRequest = TSLPRequest("GetProfileInfo",["id",gID]);
+    }
+}
+
+default
+{
+    state_entry()
+    {
+        llSetText("Fetching profile...",<1.,1.,1.>,1.);
+        GetProfile();
+    }
+
+    timer()
+    {
+        GetProfile();
+    }
+    
+    on_rez(integer a)
+    {
+        llResetScript();
+    }
+    
+    http_response(key rid, integer status, list mdata, string body)
+    {
+        if(rid == gRequest)
+        {
+            if(status >= 200 && status < 300)
+            {
+                list data = TSLPString2TSLPData(body);
+                if(TSLPSuccess(data))
+                {
+                    string method = TSLPMethod(data);
+                    if(TSLPMethod(data) == "GetProfileInfo")
+                    {
+                        string hovertext = "";
+                        list members = GetTSLPObjectMembers(data,"response.fields");
+                        integer i; integer len;
+                        for(i = 0, len = llGetListLength(members); i < len; ++i)
+                        {
+                            string field = llList2String(members,i);
+                            string value = TSLP2String(data,"response.fields."+field);
+                            hovertext += field+": "+value+"\n";
+                        }
+                        llSetText(hovertext,<1.,1.,1.>,1.);
+                    }
+                    else
+                    {
+                        gID = TSLP2Integer(data,"response.id");
+                        GetProfile();
+                    }
+                }
+                else
+                {
+                    llSay(0,"Error: "+TSLPError(data));
+                }
+            }
+        }
+    }
+}
