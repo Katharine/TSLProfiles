@@ -27,6 +27,7 @@ Features included:
   here; the WordPress modifications are long lost)
 - Some variety of in-world support that I could probably find if
   I went looking.
+- A documented API.
 - An OS X Dashboard widget that told you which of your friends were
   online and let you chat with them. The source can be found in 
   tslpchat.zip.
