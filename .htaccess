@@ -1,0 +1,7 @@
+RewriteEngine on
+Redirect /about /about.php
+Redirect /start /start.php
+Redirect /browse /browse.php
+Redirect /help/blog/ /help/blog.php
+Redirect /help/profile/ /help/profile.php
+Redirect /help/ratings/ /help/ratings.php
